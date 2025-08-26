@@ -30,9 +30,40 @@ def visualizar_contato(lista_de_contatos):
         
         print(f"{indice + 1}. [{status_favorito}] Nome: {nome_contato} - Tel: {telefone_contato} - Email: {email_contato}")
 print("---------------------")
-    
 
-
+def editar_contato(lista_de_contatos):
+    visualizar_contato(lista_de_contatos)
+    if not lista_de_contatos:
+        return
+    try:
+        escolha = input("\nDigite o número do contato que deseja editar: ")
+        escolha_int = int(escolha)
+        
+        if 1 <= escolha_int <= len(lista_de_contatos):
+            indice_contato = escolha_int - 1
+            
+            contato_a_editar = lista_de_contatos[indice_contato]
+            
+            print(f"\nEditando contato: {contato_a_editar['nome']}")
+            
+            novo_nome = input(f"novo nome (atual: {contato_a_editar['nome']}): ")
+            novo_telefone = input(f"novo telefone (atual: {contato_a_editar['telefone']}): ")
+            novo_email = input(f"novo email (atual: {contato_a_editar['email']}): ")            
+            
+            contato_a_editar['nome'] =  novo_nome
+            contato_a_editar['telefone'] = novo_telefone
+            contato_a_editar['email'] = novo_email
+            
+            print("\n✅ Contato atualizado com sucesso!")
+            
+        else:
+            print("❌ Erro: Número inválido. Escolha um contato da lista.")
+            
+    except ValueError:
+        print("❌ Erro: Por favor, digite apenas o número do contato.")
+        
+def favoritar_contato(lista_de_contatos):
+    visualizar_contato
 contatos = []
 while True:
     print("\ncadastro e visualizalçao de contatos")
@@ -56,6 +87,9 @@ while True:
     
     elif escolha == "3":
         editar_contato(contatos)
+        
+    elif escolha == "4":
+        favoritar_contato(contatos)
     
     elif escolha == "7":
         break
