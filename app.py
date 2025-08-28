@@ -63,10 +63,81 @@ def editar_contato(lista_de_contatos):
         print("❌ Erro: Por favor, digite apenas o número do contato.")
         
 def favoritar_contato(lista_de_contatos):
-    visualizar_contato
+    visualizar_contato(lista_de_contatos)
+    if not lista_de_contatos:
+        return
+    try:
+        escolha = input("\nDigite o contato que deseja favoritar: ")
+        escolha_int = int(escolha)
+        
+        if 1 <= escolha_int <= len (lista_de_contatos):
+            indice_contato = escolha_int - 1
+            
+            favoritar_contato = lista_de_contatos[indice_contato]
+            
+            favoritar_contato['favorito'] = not favoritar_contato['favorito']
+            
+            nome_contato = favoritar_contato['nome']
+            if favoritar_contato['favorito']:
+                print(f"\n✅ Contato '{nome_contato}' marcado como favorito ★.")
+            else:
+                print(f"\n🗑️ Contato '{nome_contato}' desmarcado como favorito.")
+        
+        else:
+            print("❌ Erro: Número inválido. Escolha um contato da lista.")
+            
+    except ValueError:
+        print("❌ Erro: Por favor, digite apenas o número do contato.")
+        
+def visualizar_contato_favorito(lista_de_contatos):
+    print("\n Lista de contatos favoritos")
+    
+    favoritos_encontrados = []
+    
+    for contato in lista_de_contatos:
+        
+        if contato["favorito"]:
+            favoritos_encontrados.append(contato)
+     
+    if not favoritos_encontrados:
+        print("Você ainda não marcou nenhum contato como favorito.")
+        return
+    
+        
+    for indice, contato in enumerate (favoritos_encontrados):
+            nome_contato = contato["nome"]
+            telefone_contato = contato["telefone"]
+            email_contato = contato["email"]
+            
+            print(f"{indice + 1}. [★] Nome: {nome_contato} - Tel: {telefone_contato} - Email: {email_contato}")
+print("---------------------")
+    
+def deletar_contato(lista_de_contatos):
+    visualizar_contato(lista_de_contatos)
+    if not lista_de_contatos:
+        return
+    
+    try:
+        escolha = input("\nDigite o número do contato que deseja deletar: ")
+        escolha_int = int(escolha)
+        
+        if 1 <= escolha_int <= len (lista_de_contatos):
+            indice_contato = escolha_int - 1
+            
+            nome_removido = lista_de_contatos[indice_contato]['nome']
+            
+            lista_de_contatos.pop(indice_contato)
+            print(f"\n✅ Contato '{nome_removido}' foi deletado com sucesso!")
+            
+        else:
+            print("❌ Erro: Número inválido. Escolha um contato da lista.")
+
+    except ValueError:
+        print("❌ Erro: Por favor, digite apenas o número do contato.")
+    
 contatos = []
 while True:
-    print("\ncadastro e visualizalçao de contatos")
+    print("\ncadastro e visualização de contatos")
     print("1 - Adicionar contato novo")
     print("2 - Visualizar toda a lista de contatos")
     print("3 - Editar contato existente")
@@ -90,7 +161,13 @@ while True:
         
     elif escolha == "4":
         favoritar_contato(contatos)
-    
+        
+    elif escolha == "5":
+        visualizar_contato_favorito(contatos)
+        
+    elif escolha == "6":
+        deletar_contato(contatos)
+        
     elif escolha == "7":
         break
         
